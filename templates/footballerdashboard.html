@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h3>Futbolcu Kontrol Paneli</h3>
+    <hr>
+
+    <hr>
+
+    <a class="btn btn-danger" href="{% url "addfootballer" %}">Futbolcu Ekle</a>
+    <hr>
+
+    {% if footballers %}
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">İsim</th>
+                <th scope="col">Yaş</th>
+                <th scope="col">Maaş</th>
+                <th scope="col">Pozisyon</th>
+                <th scope="col">Değer</th>
+                <th scope="col">Güç</th>
+                <th scope="col">Takım</th>
+                <th scope="col">Güncelle</th>
+                <th scope="col">Sil</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for footballer in footballers %}
+                <tr>
+                    <th scope="row">{{ footballer.id }}</th>
+                    <td>{{ footballer.name }}</td>
+                    <td>{{ footballer.age }}</td>
+                    <td>{{ footballer.salary }} M€</td>
+                    <td>{{ footballer.position }}</td>
+                    <td>{{ footballer.marketValue }} M€</td>
+                    <td>{{ footballer.overall }}</td>
+                    <td>{{ footballer.team.all.first }}</td>
+                    <td><a href="{% url "updatefootballer" footballer.id %}" class="button">Güncelle</a></td>
+                    <td><a href="{%  url "deletefootballer" footballer.id %}" class="btn btn-danger">Sil</a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-danger">
+            Sistemde henüz bir futbolcu bulunmuyor..
+        </div>
+    {% endif %}
+
+
+
+
+{% endblock body %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h3>Futbol Takımı Kontrol Paneli</h3>
+    <hr>
+
+    <hr>
+
+    <a class="btn btn-danger" href="{% url "addteam" %}">Takım Ekle</a>
+    <hr>
+
+    {% if teams %}
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">İsim</th>
+                <th scope="col">Oyuncu Sayısı</th>
+                <th scope="col">Kadro Değeri</th>
+                <th scope="col">Kadro Gücü</th>
+                <th scope="col">Güncelle</th>
+                <th scope="col">Sil</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for team in teams %}
+                <tr>
+                    <th scope="row">{{ team.id }}</th>
+                    <td><a href="{% url "teamdetail" team.id %}">{{ team.name }}</a></td>
+                    <td>{{ team.numOfTeamMembers }}</td>
+                    <td>{{ team.squadValue }}</td>
+                    <td>{{ team.teamPower }}</td>
+{#                    <td>{{ footballer.age }}</td>#}
+{#                    <td>{{ footballer.salary }} M€</td>#}
+{#                    <td>{{ footballer.position }}</td>#}
+{#                    <td>{{ footballer.marketValue }} M€</td>#}
+{#                    <td>{{ footballer.overall }}</td>#}
+                    <td><a href="{% url "updateteam" team.id %}" class="button">Güncelle</a></td>
+                    <td><a href="{%  url "deleteteam" team.id %}" class="btn btn-danger">Sil</a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-danger">
+            Sistemde henüz bir futbolcu bulunmuyor..
+        </div>
+    {% endif %}
+
+
+
+
+{% endblock body %}
